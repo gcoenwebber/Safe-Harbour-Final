@@ -1,0 +1,37 @@
+# Render Blueprint for Safe Harbour
+# Deploy with: Dashboard → New → Blueprint → Select this repo
+
+services:
+  # Express API Server
+  - type: web
+    name: safe-harbour-api
+    runtime: node
+    plan: free
+    buildCommand: cd server && npm install && npm run build
+    startCommand: cd server && npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: PORT
+        value: 3001
+      - key: NODE_ENV
+        value: production
+      # Redis connection (uses Render Redis or set manually for Upstash)
+      - key: REDIS_URL
+        fromService:
+          name: safe-harbour-redis
+          type: redis
+          property: connectionString
+      # Supabase credentials (set manually in Render Dashboard)
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: BLIND_INDEX_SECRET
+        sync: false
+
+  # Redis Instance
+  - type: redis
+    name: safe-harbour-redis
+    plan: free
+    maxmemoryPolicy: noeviction
+    ipAllowList: [] # Allow all (Render internal network)

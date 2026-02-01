@@ -1,0 +1,44 @@
+.ic-dashboard-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.ic-dashboard-page.loading .loading-spinner {
+    color: #94a3b8;
+    font-size: 1.2rem;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.ic-dashboard-page.error .error-message {
+    text-align: center;
+    padding: 2rem;
+    background: #1e293b;
+    border-radius: 12px;
+    border: 1px solid #334155;
+    max-width: 400px;
+}
+
+.ic-dashboard-page.error .error-message h2 {
+    color: #f87171;
+    margin-bottom: 1rem;
+}
+
+.ic-dashboard-page.error .error-message p {
+    color: #94a3b8;
+    margin-bottom: 0.5rem;
+}
